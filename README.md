@@ -14,7 +14,7 @@ Mobile-first agricultural loyalty platform for product QR claims, points, reward
 
 ## Repository status
 
-This repository currently contains a temporary static homepage and the initial CI foundation. Backend and mobile source must be added only after the target architecture and secure integration contracts are verified. Do not assume Supabase or Redis is wired into this repository until the relevant code and environment configuration are present.
+This repository contains a temporary static homepage, CI foundation, and a version-controlled snapshot of the deployed Supabase `rewardloop-api` dispatcher. The live database's full canonical migration SQL is not yet mirrored here, and the frontend is not yet connected to the backend. See `docs/BACKEND_SOURCE_OF_TRUTH.md` for provenance, known legacy-function risks, and release gates.
 
 ## Run locally
 
