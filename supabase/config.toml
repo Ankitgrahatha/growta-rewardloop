@@ -1,0 +1,25 @@
+project_id = "guhhuqxrobhuumwrypnc"
+
+[functions.rewardloop-api]
+verify_jwt = true
+
+# Legacy functions below are deployed with verify_jwt=false and must not be
+# used by the client. They manually validate bearer tokens, but their role and
+# tenant authorization must be audited before any client integration.
+[functions.claim-qr]
+verify_jwt = false
+
+[functions.onboard-farmer]
+verify_jwt = false
+
+[functions.issue-qr-batch]
+verify_jwt = false
+
+[functions.revoke-qr-batch]
+verify_jwt = false
+
+[functions.redeem-reward]
+verify_jwt = false
+
+[functions.verify-partner]
+verify_jwt = false
