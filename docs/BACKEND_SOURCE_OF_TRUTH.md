@@ -9,8 +9,8 @@ The deployed authenticated API was retrieved from Supabase and mirrored to:
 
 - Live deployed version at capture: 7.
 - SHA-256 reported by Supabase for the deployed source: `a98269e94a0adc0720e610582d4a9414cde5a057130db2ce41283daeea72a29e`.
-- The function has `verify_jwt = true`, validates the bearer session with Supabase Auth, and performs privileged operations through a server-side service-role client.
-- CORS is an exact-origin allowlist; the deployed default is currently `https://bigagri.vercel.app`, with additional origins supplied through the server-side `ALLOWED_ORIGINS` secret. Do not add preview wildcards. Align the allowlist with the intended production hostname before connecting this repository's UI.
+- The function has `verify_jwt = true`, validates the bearer session with Supabase Auth, and performs privileged operations through a server-side service-role client. The live function was redeployed as version 8 after the reviewed CORS update.
+- CORS uses an exact-origin allowlist containing `https://bigagri.vercel.app`, `https://growta-rewardloop.vercel.app`, `https://growta-rewardloop-acme-bce0.vercel.app`, and `https://growta-rewardloop-git-main-acme-bce0.vercel.app`, plus any explicitly configured exact origins in the server-side `ALLOWED_ORIGINS` secret. Preview deployment URLs are not wildcarded.
 - The implementation currently hardcodes tenant slug `growta-rewardloop`; it is a single-tenant pilot API, not a general multi-tenant router.
 
 ## Database state observed
@@ -32,7 +32,7 @@ The live project also has six older Edge Functions: `claim-qr`, `onboard-farmer`
 
 Required server-side function secrets include `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, and a public key variable (`SUPABASE_ANON_KEY` or `SUPABASE_PUBLISHABLE_KEY`). Keep all secret values out of GitHub and the browser. Do not print, commit, or paste service-role or Redis tokens into source.
 
-The frontend will need only the project URL and public/publishable key. Use Vercel environment settings and Supabase Auth URL configuration; do not place secrets in committed `.env` files.
+The frontend uses only the project URL and a public/publishable key. Supabase Auth Site URL and Redirect URLs still need to be confirmed in the dashboard for `https://growta-rewardloop.vercel.app` before production email-link sign-in can be declared working. Use Vercel environment settings and Supabase Auth URL configuration; do not place secrets in committed `.env` files.
 
 ## Next backend gates
 
