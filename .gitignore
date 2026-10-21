@@ -1,0 +1,24 @@
+# Secrets and local environment
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+secrets/
+credentials/
+
+# Dependencies and build outputs
+node_modules/
+dist/
+build/
+coverage/
+.turbo/
+.vercel/
+
+# Local tooling and OS files
+.DS_Store
+Thumbs.db
+*.log
+npm-debug.log*

@@ -1,0 +1,14 @@
+{
+  "name": "growta-rewardloop",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Agricultural loyalty platform foundation",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "node --test",
+    "build": "node scripts/check-static-site.mjs"
+  }
+}
