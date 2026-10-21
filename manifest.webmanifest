@@ -1,0 +1,16 @@
+{
+  "id": "/",
+  "name": "Growta RewardLoop",
+  "short_name": "RewardLoop",
+  "description": "Agricultural product rewards and QR claims",
+  "lang": "hi-IN",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f5f7f1",
+  "theme_color": "#173d2d",
+  "orientation": "portrait-primary",
+  "icons": [
+    { "src": "/icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

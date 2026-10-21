@@ -2,7 +2,7 @@
 
 Mobile-first agricultural loyalty platform for product QR claims, points, rewards, and partner operations.
 
-> **Current release status:** foundation / connectivity smoke-test stage. The current homepage is a temporary deployment test page, not the complete farmer PWA. Do not use it to issue or redeem real rewards.
+> **Current release status:** farmer PWA foundation in progress. The UI now includes email magic-link authentication, profile onboarding, QR claim, reward catalogue, and activity views. Authentication delivery, RLS reads, CORS, and live claim/redemption behavior still require end-to-end verification. Do not use real-value rewards until the release gates pass.
 
 ## Current architecture target
 
@@ -25,7 +25,7 @@ npm test
 npm run build
 ```
 
-The project intentionally has no runtime npm dependencies at this foundation stage. The build check validates the static entry page; it is not a substitute for end-to-end, backend, security, or device tests.
+The project has no bundled npm runtime dependencies; the browser loads the Supabase JS client as an ESM import. The build and static contract checks do not replace end-to-end, backend, security, or device tests.
 
 To preview the current page locally, serve the repository root with any static HTTP server, then open `index.html`.
 
