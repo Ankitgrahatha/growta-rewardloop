@@ -7,7 +7,7 @@ const html = await readFile(path.join(root, "index.html"), "utf8");
 
 const checks = [
   ["HTML document declaration", /<!doctype html>/i],
-  ["English language attribute", /<html[^>]*\blang=["']en["']/i],
+  ["Supported interface language attribute", /<html[^>]*\blang=["'](en|hi)["']/i],
   ["Responsive viewport", /<meta[^>]*name=["']viewport["'][^>]*content=["'][^"']*width=device-width/i],
   ["Page title", /<title>[^<]+<\/title>/i],
   ["Main content landmark", /<main\b/i],
