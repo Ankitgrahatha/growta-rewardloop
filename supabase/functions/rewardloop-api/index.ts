@@ -6,10 +6,18 @@ const SERVICE_ROLE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
 const PUBLIC_KEY = Deno.env.get("SUPABASE_ANON_KEY") ?? Deno.env.get("SUPABASE_PUBLISHABLE_KEY") ?? "";
 const TENANT_SLUG = "growta-rewardloop";
 // Configure extra exact origins through ALLOWED_ORIGINS in Edge Function secrets.
-const ALLOWED_ORIGINS = new Set(
-  (Deno.env.get("ALLOWED_ORIGINS") ?? "https://bigagri.vercel.app")
-    .split(",").map((origin) => origin.trim()).filter(Boolean),
-);
+const DEFAULT_ALLOWED_ORIGINS = [
+  "https://bigagri.vercel.app",
+  "https://growta-rewardloop.vercel.app",
+  "https://growta-rewardloop-acme-bce0.vercel.app",
+  "https://growta-rewardloop-git-main-acme-bce0.vercel.app",
+];
+const CONFIGURED_ALLOWED_ORIGINS = (Deno.env.get("ALLOWED_ORIGINS") ?? "")
+  .split(",").map((origin) => origin.trim()).filter(Boolean);
+const ALLOWED_ORIGINS = new Set([
+  ...DEFAULT_ALLOWED_ORIGINS,
+  ...CONFIGURED_ALLOWED_ORIGINS,
+]);
 const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
   "Access-Control-Allow-Methods": "POST, OPTIONS",
