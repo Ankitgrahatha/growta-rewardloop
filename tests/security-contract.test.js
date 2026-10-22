@@ -3,10 +3,11 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 
 const root = new URL("../", import.meta.url);
-const [api, config, browser] = await Promise.all([
+const [api, config, browser, settings] = await Promise.all([
   readFile(new URL("supabase/functions/rewardloop-api/index.ts", root), "utf8"),
   readFile(new URL("supabase/config.toml", root), "utf8"),
   readFile(new URL("app.js", root), "utf8"),
+  readFile(new URL("supabase/functions/rewardloop-admin-settings/index.ts", root), "utf8"),
 ]);
 
 test("the primary dispatcher requires platform JWT verification", () => {
@@ -58,4 +59,28 @@ test("legacy endpoints remain explicitly marked as not client entry points", () 
 
 test("saved farmer locale is applied in both directions on sign-in", () => {
   assert.match(browser, /state\.language = data\.preferred_locale === "en-IN" \? "en" : "hi";/);
+});
+
+
+test("admin settings endpoint verifies session and admin membership before settings access", () => {
+  const userVerification = settings.indexOf("await userClient.auth.getUser()");
+  const adminClient = settings.indexOf("createClient(URL,SERVICE");
+  const membershipCheck = settings.indexOf('if(!member) return reply(403');
+  const settingsRead = settings.indexOf('if(action==="admin_settings_get")');
+  assert.ok(userVerification >= 0 && adminClient > userVerification);
+  assert.ok(membershipCheck > adminClient && settingsRead > membershipCheck);
+  assert.match(settings, /\.eq\("user_id",user\.id\)/);
+  assert.match(settings, /\.eq\("status","active"\)/);
+  assert.match(settings, /\.in\("role",\["brand_admin","super_admin"\]\)/);
+});
+
+test("admin settings CORS uses an exact origin allowlist", () => {
+  assert.match(settings, /ALLOWED_ORIGINS\.has\(origin\)/);
+  assert.doesNotMatch(settings, /Access-Control-Allow-Origin["']?\s*:\s*["']\*["']/);
+});
+
+test("admin settings never stores SMTP passwords in application tables", () => {
+  assert.match(settings, /Never persist SMTP passwords in application tables/);
+  assert.match(settings, /smtp_management_integration_not_configured/);
+  assert.doesNotMatch(settings, /allowed\.smtp_password\s*=/);
 });
