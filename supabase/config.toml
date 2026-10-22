@@ -23,3 +23,6 @@ verify_jwt = false
 
 [functions.verify-partner]
 verify_jwt = false
+
+[functions.rewardloop-admin-settings]
+verify_jwt = true
