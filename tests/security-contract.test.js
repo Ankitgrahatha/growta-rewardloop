@@ -84,3 +84,11 @@ test("admin settings never stores SMTP passwords in application tables", () => {
   assert.match(settings, /smtp_management_integration_not_configured/);
   assert.doesNotMatch(settings, /allowed\.smtp_password\s*=/);
 });
+
+
+test("profile lookup failures do not masquerade as missing farmer profiles", () => {
+  assert.match(browser, /if \(error\) \{[\s\S]*?state\.profile=null; showView\("profile-error-view"\); return;/);
+  assert.match(browser, /for \(const id of \["auth-view","profile-view","profile-error-view","app-view"\]\)/);
+  assert.match(browser, /\$\("retry-profile-button"\)\.addEventListener\("click"/);
+  assert.match(browser, /profileLoadErrorCopy:/);
+});
