@@ -65,7 +65,7 @@ async function loadProfile() {
   state.profile=data;
   if (!data) { showView("profile-view"); return; }
   if (data.role !== "farmer") { setNotice("This account is not a farmer profile.", "error"); showView("profile-view"); return; }
-  state.language = data.preferred_locale === "en-IN" ? "en" : state.language;
+  state.language = data.preferred_locale === "en-IN" ? "en" : "hi";
   applyLanguage();
   $("greeting").textContent = `${state.language==="hi"?"नमस्ते":"Hello"}, ${data.display_name}`;
   $("profile-status").textContent = data.verification_status === "verified" ? t("verified") : t("pending");
