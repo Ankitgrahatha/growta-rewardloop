@@ -92,3 +92,11 @@ test("profile lookup failures do not masquerade as missing farmer profiles", () 
   assert.match(browser, /\$\("retry-profile-button"\)\.addEventListener\("click"/);
   assert.match(browser, /profileLoadErrorCopy:/);
 });
+
+
+test("static build validates frontend element references", async () => {
+  const buildScript = await readFile(new URL("scripts/check-static-site.mjs", root), "utf8");
+  assert.match(buildScript, /app\\.js references missing HTML IDs/);
+  assert.match(buildScript, /Frontend JavaScript entry point/);
+  assert.match(buildScript, /Profile load error recovery view/);
+});
