@@ -54,3 +54,8 @@ test("legacy endpoints remain explicitly marked as not client entry points", () 
   assert.match(config, /Legacy functions below are deployed with verify_jwt=false and must not be/);
   assert.match(config, /\[functions\.claim-qr\][\s\S]*?verify_jwt\s*=\s*false/);
 });
+
+
+test("saved farmer locale is applied in both directions on sign-in", () => {
+  assert.match(browser, /state\.language = data\.preferred_locale === "en-IN" \? "en" : "hi";/);
+});
