@@ -45,7 +45,7 @@ The frontend uses only the project URL and a public/publishable key. Supabase Au
 ## Next backend gates
 
 1. Recover and commit canonical migration SQL, then compare it with live schema and migration history.
-2. Audit the six legacy functions and their RPCs; disable or secure any unsafe route after impact review.
+2. Decide whether to retire the six legacy endpoints after checking logs/clients; if retained, replace wildcard CORS with an exact allowlist and add live regression tests. The three administrative RPCs reviewed enforce active tenant-admin membership.
 3. Add isolated database tests for valid claims, replay/idempotency, concurrency, redemptions, stock/balance rollback, demo protection, and tenant isolation.
 4. Configure production auth delivery and redirect URLs.
 5. Integrate Upstash for rate limiting only after server-side secrets and abuse semantics are agreed; PostgreSQL remains authoritative for points.
